@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="JAVA_MODULE" version="4">
   <component name="NewModuleRootManager">
-    <output url="file://$USER_HOME$/Documents/rspeer/scripts" />
+    <output url="file://$USER_HOME$/Documents/RSPeer/scripts" />
     <output-test url="file://$MODULE_DIR$/out/test/RspeerProject" />
     <exclude-output />
     <content url="file://$MODULE_DIR$">
@@ -9,10 +9,10 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/Documents/rspeer/cache/rspeer.jar!/" />
+          <root url="jar://$USER_HOME$/Documents/RSPeer/cache/rspeer.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

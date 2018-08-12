@@ -7,7 +7,6 @@ import org.rspeer.runetek.api.commons.Time;
 import org.rspeer.runetek.api.component.Bank;
 import org.rspeer.runetek.api.component.tab.Inventory;
 import org.rspeer.runetek.api.movement.Movement;
-import org.rspeer.runetek.api.movement.pathfinding.region.util.Reachable;
 import org.rspeer.runetek.api.movement.position.Area;
 import org.rspeer.runetek.api.movement.position.Position;
 import org.rspeer.runetek.api.scene.Npcs;
@@ -27,7 +26,7 @@ public class MuesliCows extends Script {
     private static final String FOOD = "Tuna";
     private static final String EAT_ACTION = "Eat";
     private static final String COW_NAME = "Cow";
-    private static final int waitDelay = 300;
+    private static final int waitDelay = 200;
 
     @Override
     public void onStart(){
@@ -37,19 +36,18 @@ public class MuesliCows extends Script {
     @Override
     public int loop() {
         Player local = Players.getLocal();
+        final Npc attackingMe = Npcs.getNearest(npc -> npc.getName().equals(COW_NAME) && npc.getTarget() != null && npc.getTarget().equals(local) && npc.getHealthPercent() > 0);
         if (local.getHealthPercent() > 20) {
-            if(!local.isMoving() && !local.isAnimating()) {
-                if(COWS_AREA.contains(local)) {
-                    final Npc cow = Npcs.getNearest(COW_NAME);
+            if(COWS_AREA.contains(local)) {
+                if(!local.isMoving() && !local.isAnimating() && (local.getTargetIndex() == -1 || local.getTarget().getHealthPercent() == 0) && attackingMe == null) {
+                    final Npc cow = Npcs.getNearest(npc -> COWS_AREA.contains(npc) && npc.getName().equals(COW_NAME) && npc.getTarget() == null && npc.isPositionInteractable());
                     if(cow != null) {
-                        if ((cow.getTarget() == null) && (cow.isPositionInteractable())) {
-                            cow.interact("Attack"); //attack cows
-                            Time.sleep(waitDelay);
-                        }
+                        cow.interact("Attack"); //attack cows
+                        Time.sleep(waitDelay);
                     }
-                } else {
-                    Movement.walkTo(COWS_AREA.getCenter()); //walk to cows
                 }
+            } else {
+                Movement.walkTo(COWS_AREA.getCenter()); //walk to cows
             }
         } else {
             if(Inventory.contains(FOOD)) {
