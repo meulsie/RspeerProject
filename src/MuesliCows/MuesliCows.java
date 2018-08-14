@@ -14,19 +14,20 @@ import org.rspeer.runetek.api.scene.Players;
 import org.rspeer.script.Script;
 import org.rspeer.script.ScriptMeta;
 import org.rspeer.script.ScriptCategory;
+import org.rspeer.script.task.TaskScript;
 
 
 @ScriptMeta(name = "Muesli Cows",  desc = "Kills cows in Lumbridge", developer = "Muesli", category = ScriptCategory.COMBAT)
 
-public class MuesliCows extends Script {
+public class MuesliCows extends TaskScript {
 
-    private static final Area COWS_AREA = Area.rectangular(new Position(3247, 3296, 0), new Position(3265, 3255, 0));
-    private static final Area BANK_AREA = Area.rectangular(new Position(3208, 3220, 2), new Position(3210, 3218, 2));
+    public static final Area COWS_AREA = Area.rectangular(new Position(3247, 3296, 0), new Position(3265, 3255, 0));
+    public static final Area BANK_AREA = Area.rectangular(new Position(3208, 3220, 2), new Position(3210, 3218, 2));
 
-    private static final String FOOD = "Tuna";
-    private static final String EAT_ACTION = "Eat";
-    private static final String COW_NAME = "Cow";
-    private static final int waitDelay = 200;
+    public static final String FOOD = "Tuna";
+    public static final int waitDelay = 200;
+    private static final String EAT_ACTION = "Eat"; //can be removed
+    private static final String COW_NAME = "Cow"; //can be removed
 
     @Override
     public void onStart(){
@@ -36,7 +37,7 @@ public class MuesliCows extends Script {
     @Override
     public int loop() {
         Player local = Players.getLocal();
-        final Npc attackingMe = Npcs.getNearest(npc -> npc.getName().equals(COW_NAME) && npc.getTarget() != null && npc.getTarget().equals(local) && npc.getHealthPercent() > 0);
+        final Npc attackingMe = Npcs.getNearest(npc -> npc.getName().equals(COW_NAME) && npc.getTarget() != null && npc.getTarget().equals(local) && npc.getHealthPercent() > 0); //can be removed
         if (local.getHealthPercent() > 20) {
             if(COWS_AREA.contains(local)) {
                 if(!local.isMoving() && !local.isAnimating() && (local.getTargetIndex() == -1 || local.getTarget().getHealthPercent() == 0) && attackingMe == null) {
@@ -82,7 +83,7 @@ public class MuesliCows extends Script {
                 //eat food
             //} else {
                 //if I am at the bank {
-                    //Bank
+                    //Banking
                 //} else {
                     //walk to bank
                 //}
