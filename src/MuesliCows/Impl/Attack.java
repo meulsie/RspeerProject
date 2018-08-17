@@ -5,12 +5,14 @@ import org.rspeer.runetek.adapter.scene.Player;
 import org.rspeer.runetek.api.commons.Time;
 import org.rspeer.runetek.api.scene.Npcs;
 import org.rspeer.runetek.api.scene.Players;
+import org.rspeer.runetek.event.listeners.DeathListener;
+import org.rspeer.runetek.event.types.DeathEvent;
 import org.rspeer.script.task.Task;
 
 import static MuesliCows.MuesliCows.COWS_AREA;
 import static MuesliCows.MuesliCows.waitDelay;
 
-public class Attack extends Task {
+public class Attack extends Task{
     private static final String COW_NAME = "Cow";
 
     @Override
