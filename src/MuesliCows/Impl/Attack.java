@@ -2,13 +2,13 @@ package MuesliCows.Impl;
 
 import org.rspeer.runetek.adapter.scene.Npc;
 import org.rspeer.runetek.adapter.scene.Player;
+import org.rspeer.runetek.api.commons.Time;
 import org.rspeer.runetek.api.scene.Npcs;
 import org.rspeer.runetek.api.scene.Players;
 import org.rspeer.script.task.Task;
 
-import java.util.function.Predicate;
-
 import static MuesliCows.MuesliCows.COWS_AREA;
+import static MuesliCows.MuesliCows.waitDelay;
 
 public class Attack extends Task {
     private static final String COW_NAME = "Cow";
@@ -20,7 +20,11 @@ public class Attack extends Task {
 
     @Override
     public int execute(){
-
+        final Npc cow = Npcs.getNearest(npc -> COWS_AREA.contains(npc) && npc.getName().equals(COW_NAME) && npc.getTarget() == null && npc.isPositionInteractable());
+        if(cow != null) {
+            cow.interact("Attack"); //attack cows
+            Time.sleep(waitDelay);
+        }
         return 300;
     }
 
@@ -29,7 +33,7 @@ public class Attack extends Task {
         return !local.isMoving() && !local.isAnimating() && (local.getTargetIndex() == -1 || local.getTarget().getHealthPercent() == 0);
     }
 
-    private Predicate<Npc> attackingMe() {
-        return npc -> npc.getName().equals(COW_NAME) && npc.getTarget() != null && npc.getTarget().equals(Players.getLocal()) && npc.getHealthPercent() > 0; //missing Npcs.getNearest()
+    private Npc attackingMe() {
+        return Npcs.getNearest(npc -> npc.getName().equals(COW_NAME) && npc.getTarget() != null && npc.getTarget().equals(Players.getLocal()) && npc.getHealthPercent() > 0);
     }
 }
