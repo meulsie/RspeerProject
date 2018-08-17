@@ -7,9 +7,10 @@ import org.rspeer.script.ScriptMeta;
 import org.rspeer.script.ScriptCategory;
 import org.rspeer.script.task.Task;
 import org.rspeer.script.task.TaskScript;
+import org.rspeer.ui.Log;
 
 
-@ScriptMeta(name = "Muesli Cows", version = 1.1, desc = "Kills cows in Lumbridge", developer = "Muesli", category = ScriptCategory.COMBAT)
+@ScriptMeta(name = "Muesli Cows", version = 1.2, desc = "Kills cows in Lumbridge", developer = "Muesli", category = ScriptCategory.COMBAT)
 
 public class MuesliCows extends TaskScript {
 
@@ -20,9 +21,11 @@ public class MuesliCows extends TaskScript {
 
     public static final String FOOD = "Tuna";
     public static final int waitDelay = 200;
+    public static boolean targetDied;
 
     @Override
     public void onStart(){
+        Log.info("-------------------Starting script-------------------");
         submit(TASKS);
     }
 

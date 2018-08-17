@@ -5,6 +5,7 @@ import org.rspeer.runetek.api.commons.Time;
 import org.rspeer.runetek.api.component.tab.Inventory;
 import org.rspeer.runetek.api.scene.Players;
 import org.rspeer.script.task.Task;
+import org.rspeer.ui.Log;
 
 import static MuesliCows.MuesliCows.FOOD;
 import static MuesliCows.MuesliCows.waitDelay;
@@ -20,6 +21,7 @@ public class Eat extends Task {
 
     @Override
     public int execute(){
+        Log.info("Executing Eating");
         Item foodInv = Inventory.getFirst(FOOD);
         if(foodInv != null) {
             foodInv.interact(EAT_ACTION);

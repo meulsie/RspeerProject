@@ -4,6 +4,7 @@ import org.rspeer.runetek.api.component.tab.Inventory;
 import org.rspeer.runetek.api.movement.Movement;
 import org.rspeer.runetek.api.scene.Players;
 import org.rspeer.script.task.Task;
+import org.rspeer.ui.Log;
 
 import static MuesliCows.MuesliCows.BANK_AREA;
 import static MuesliCows.MuesliCows.COWS_AREA;
@@ -18,12 +19,13 @@ public class Traverse extends Task {
 
     @Override
     public int execute(){
+        Log.info("Executing traversing");
         Movement.walkTo(traverseToBank() ? BANK_AREA.getCenter() : COWS_AREA.getCenter());
         return 300;
     }
 
     private boolean traverseToBank() {
-        return Players.getLocal().getHealthPercent() <= 20 && !Inventory.contains(FOOD) && !BANK_AREA.contains(Players.getLocal()); //May need to change the health percent part
+        return !Inventory.contains(FOOD) && !BANK_AREA.contains(Players.getLocal()); //May need to change the health percent part
     }
 
     private boolean traverseToCows() {

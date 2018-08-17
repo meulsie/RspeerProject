@@ -5,6 +5,7 @@ import org.rspeer.runetek.api.component.Bank;
 import org.rspeer.runetek.api.component.tab.Inventory;
 import org.rspeer.runetek.api.scene.Players;
 import org.rspeer.script.task.Task;
+import org.rspeer.ui.Log;
 
 import static MuesliCows.MuesliCows.BANK_AREA;
 import static MuesliCows.MuesliCows.FOOD;
@@ -19,6 +20,7 @@ public class Banking extends Task {
 
     @Override
     public int execute(){
+        Log.info("Executing Banking");
         if(Bank.isOpen()){
             Bank.withdrawAll(FOOD);
         } else {

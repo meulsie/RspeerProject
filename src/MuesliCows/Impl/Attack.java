@@ -5,9 +5,9 @@ import org.rspeer.runetek.adapter.scene.Player;
 import org.rspeer.runetek.api.commons.Time;
 import org.rspeer.runetek.api.scene.Npcs;
 import org.rspeer.runetek.api.scene.Players;
-import org.rspeer.runetek.event.listeners.DeathListener;
-import org.rspeer.runetek.event.types.DeathEvent;
+import static MuesliCows.MuesliCows.targetDied;
 import org.rspeer.script.task.Task;
+import org.rspeer.ui.Log;
 
 import static MuesliCows.MuesliCows.COWS_AREA;
 import static MuesliCows.MuesliCows.waitDelay;
@@ -17,11 +17,13 @@ public class Attack extends Task{
 
     @Override
     public boolean validate(){
-        return Players.getLocal().getHealthPercent() > 20 && COWS_AREA.contains(Players.getLocal()) && !playerHasTarget()&& attackingMe() == null;
+        //Log.info(String.valueOf(playerHasNoTarget()));
+        return !targetDied && Players.getLocal().getHealthPercent() > 20 && COWS_AREA.contains(Players.getLocal()) && playerHasNoTarget()&& attackingMe() == null;
     }
 
     @Override
     public int execute(){
+        Log.info("Executing Attack");
         final Npc cow = Npcs.getNearest(npc -> COWS_AREA.contains(npc) && npc.getName().equals(COW_NAME) && npc.getTarget() == null && npc.isPositionInteractable());
         if(cow != null) {
             cow.interact("Attack"); //attack cows
@@ -30,7 +32,7 @@ public class Attack extends Task{
         return 300;
     }
 
-    private boolean playerHasTarget() {
+    private boolean playerHasNoTarget() {
         Player local = Players.getLocal();
         return !local.isMoving() && !local.isAnimating() && (local.getTargetIndex() == -1 || local.getTarget().getHealthPercent() == 0);
     }
