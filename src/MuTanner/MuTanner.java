@@ -20,7 +20,6 @@ import org.rspeer.ui.Log;
 @ScriptMeta(name = "MuTanner", version = 0.1, desc = "Tans hide in Al Kharid", developer = "Muesli", category = ScriptCategory.CRAFTING)
 
 public class MuTanner extends Script {
-    private static final String HIDE = "Blue dragonhide";
     private static final String COINS = "Coins";
     private static final Area BANK_AREA = Area.rectangular(new Position(3269, 3163), new Position(3271, 3170));
     private static final Area TAN_AREA = Area.rectangular(new Position(3270, 3193), new Position(3277, 3189));
