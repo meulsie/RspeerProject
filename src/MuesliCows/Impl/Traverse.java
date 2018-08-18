@@ -5,6 +5,7 @@ import org.rspeer.runetek.api.movement.Movement;
 import org.rspeer.runetek.api.scene.Players;
 import org.rspeer.script.task.Task;
 import org.rspeer.ui.Log;
+import java.util.concurrent.Executors;
 
 import static MuesliCows.MuesliCows.BANK_AREA;
 import static MuesliCows.MuesliCows.COWS_AREA;
